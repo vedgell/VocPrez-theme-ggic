@@ -14,8 +14,7 @@ RETRY_SLEEP_SECONDS = 10
 SPARQL_TIMEOUT = 60
 PORT = 5000
 
-#
-#   Vocabulary data sources
+# Vocabulary data sources
 #
 # Here is the list of vocabulary sources that this instance uses. FILE, SPARQL, RVA & VOCBENCH are implemented already
 # and are on by default (e.g. VOCBENCH = None) but other sources, such as GitHub can be added. To enable them, add a new
@@ -29,9 +28,9 @@ class VocabSource:
 
 
 # BEGIN Instance Vars
-SYSTEM_URI_BASE = "$SYSTEM_URI_BASE"
+SYSTEM_BASE_URI = "$SYSTEM_BASE_URI"
 USE_SYSTEM_URIS = True
-DEBUG = True
+DEBUG = False
 SPARQL_ENDPOINT = "$SPARQL_ENDPOINT"
 SPARQL_USERNAME = $SPARQL_USERNAME
 SPARQL_PASSWORD = $SPARQL_PASSWORD
@@ -53,16 +52,3 @@ VOCS_TITLE = "GGIC Vocabularies"
 VOCS_URI = "http://www.geoscience.gov.au/data-standards/ggic-vocab-register"
 VOCS_DESC = "Vocabularies managed and published by Geoscience Australia on behalf of the Government Geoscience Information Committee (GGIC), within the Australian Geoscience Information Network (AusGIN)."
 # END Vocabs list info
-
-# Admin functions
-GRAPHDB_REPO_ID = "$GRAPHDB_REPO_ID"
-GRAPH_DB_URI = "$GRAPH_DB_URI"
-GRAPHDB_USR = None
-GRAPHDB_PWD = None
-GITHUB_RAW_URI_BASE = "$GITHUB_RAW_URI_BASE"
-GITHUB_API_URI = "$GITHUB_API_URI"
-GITHUB_VOCAB_FOLDERS = "$GITHUB_VOCAB_FOLDERS"
-GITHUB_USR = None
-GITHUB_PWD = None
-GITHUB_TOKEN = "$GITHUB_TOKEN"
-# END Admin functions

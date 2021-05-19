@@ -2,7 +2,8 @@
 <html lang="en">
 <head lang="en">
   <meta charset="UTF-8">
-  <title>VocPrez</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GGIC VocPrez</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='vocprez.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='ggic.css') }}">
   <link rel="icon" href="{{ url_for('static', filename='ggic-favicon.ico') }}"  type="image/icon type">
@@ -13,20 +14,50 @@
   {% endif %}
 </head>
 <body>
+  {% set active_page = active_page -%}
   <div id="vocprez">
     made by <a href="http://github.com/rdflib/VocPrez">VocPrez</a>&nbsp;
     <a id="versionlink" href="https://github.com/RDFLib/VocPrez/releases/tag/{{ utils.version() }}">{{ utils.version() }}</a>
   </div>
-  <div id="header" style="grid-column:2;">
-    <img src="{{ url_for('static', filename='ausgin-logo-invert.png') }}" alt="AusGIN Logo" />
+  <div id="header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="http://www.geoscience.gov.au/home"><img src="{{ url_for('static', filename='ggic-logo.png') }}" alt="AusGIN Logo" /></a>
+      </div>
+      <div class="header-right">
+        <a href="http://www.geoscience.gov.au/about/contact-us">Contact Us</a>
+      </div>
+    </div>
   </div><!-- #header -->
-  <div id="mainmenu" style="grid-column:2;">
+  <div id="mainmenu">
     {% include 'nav.html' %}
   </div>
-  <div id="content" style="grid-column:2;">
-    {% block breadcrumbs %}{% endblock %}
-    {% block content %}{% endblock %}
+  <div id="content">
+    <div class="content-container">
+      {% block breadcrumbs %}{% endblock %}
+      <div class="content-flex">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
   </div><!-- #content -->
-  <div id="footer" style="grid-column:2;"></div><!-- #footer -->
+  <div id="footer">
+    <div class="footer-container">
+      <div class="footer-logos">
+        <a href="http://www.ga.gov.au/"><img src="{{ url_for('static', filename='ga-logo.png') }}" alt="GA Logo"></a>
+        <a href="https://www.resourcesandgeoscience.nsw.gov.au/"><img src="{{ url_for('static', filename='nsw-logo.jpg') }}" alt="NSW Logo"></a>
+        <a href="http://www.minerals.nt.gov.au/"><img src="{{ url_for('static', filename='nt-logo.png') }}" alt="NT Logo"></a>
+        <a href="https://www.dnrm.qld.gov.au/mining"><img src="{{ url_for('static', filename='qld-logo.png') }}" alt="QLD Logo"></a>
+        <a href="http://energymining.sa.gov.au/minerals"><img src="{{ url_for('static', filename='sa-logo.png') }}" alt="SA Logo"></a>
+        <a href="http://www.mrt.tas.gov.au/portal/home"><img src="{{ url_for('static', filename='tas-logo.png') }}" alt="TAS Logo"></a>
+        <a href="http://www.energyandresources.vic.gov.au/earth-resources"><img src="{{ url_for('static', filename='vic-logo.png') }}" alt="VIC Logo"></a>
+        <a href="http://www.dmp.wa.gov.au/index.aspx"><img src="{{ url_for('static', filename='wa-logo.jpg') }}" alt="WA Logo"></a>
+      </div>
+      <div class="footer-disclaimer">
+        <a href="http://www.geoscience.gov.au/about/copyright">Copyright</a>
+        <a href="http://www.geoscience.gov.au/about/disclaimer">Discalimer</a>
+        <a href="http://www.geoscience.gov.au/about/privacy">Privacy</a>
+      </div>
+    </div>
+  </div><!-- #footer -->
 </body>
 </html>
