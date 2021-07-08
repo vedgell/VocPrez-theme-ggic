@@ -18,7 +18,7 @@ PORT = 5000
 #
 # Here is the list of vocabulary sources that this instance uses. FILE, SPARQL, RVA & VOCBENCH are implemented already
 # and are on by default (e.g. VOCBENCH = None) but other sources, such as GitHub can be added. To enable them, add a new
-# like like VocBench.XXX = None
+# like VocBench.XXX = None
 class VocabSource:
     FILE = "FILE"
     SPARQL = "SPARQL"
