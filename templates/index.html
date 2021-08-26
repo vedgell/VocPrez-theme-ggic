@@ -1,41 +1,106 @@
 {% extends "page.html" %}
 
-{% set active_page = "home" %}
+{% set active_page = "vocab" %}
+
+{% block breadcrumbs %}
+<p class="breadcrumbs"><a href="{{ url_for('index') }}">System Home</a> / <a href="{{ url_for('vocabularies') }}">Vocabularies</a></p>
+{% endblock %}
 
 {% block content %}
 <div class="content-left">
-  <h1>System Home</h1>
-  <p>
-    Welcome to an instance of <a href="https://github.com/RDFlib/VocPrez">VocPrez</a>, a read-only web delivery system
-    for
-    Simple Knowledge Organization System (SKOS)-formulated RDF vocabularies.
-  </p>
-  <p>VocPrez presents different views of vocabularies from a list of RDF sources. This system currently implements
-    sources
-    from local files, <a href="https://vocabs.ands.org.au/">Research Vocabularies Australia</a> and <a
-      href="http://vocbencutils.uniroma2.it/">VocBench</a>. </p>
-  <p>See the <a href="{{ url_for('about') }}">About page</a> for more information about VocPrez itself.</p>
-  <h2>Vocabularies</h2>
-  <p>See the <a href="{{ url_for('vocabularies') }}">Vocabularies Register</a> for a list of vocabularies this instance
-    of VocPrez knows about.</p>
-  <h2>Collections</h2>
-  <p>Usually for the vocabularies VocPrez displays, <code>skos:Collection</code> instances are contained within a
-    <code>skos:ConceptScheme</code> so, to find a <code>skos:Collection</code>, visit the relevant
-    <code>skos:ConceptScheme</code> instance's page and you will see it listed.
-  </p>
-  <p>This behaviour of nesting <code>skos:Collection</code> instances within <code>skos:ConceptScheme</code> instances
-    may
-    be overridden and has been by some VocPrez implementers so that some VocPrez instances have Collections appear as
-    top-level items.</p>
-  <h2>Concepts</h2>
-  <p>SKOS concepts are listed within a vocabulary's home page. Each vocabulary presents both a concept heirarchy (tree)
-    view and a link to a flat list of its concepts.</p>
-  <h2>Search &amp; Querying</h2>
-  <p>You can search for Concepts within one vocab or across all vocabs using the <a
-      href="{{ url_for('search') }}">Search
-      page</a> or perform SPARQL queries using the <a href="{{ url_for('sparql') }}">SPARQL page</a>.</p>
+  <div>
+    <h1>{{ label }}</h1>
+  </div>
+  <div>
+    <dl>
+      <dt>URI</dt>
+      <dd><strong><a href="{{ uri }}">{{ uri }}</a></strong></dd>
+      {% if comment is not none %}
+      <dt>Description</dt>
+      <dd>{{ comment|safe }}</dd>
+      {% endif %}
+      {% if parent_container_uri is not none %}
+      <dt>Parent Container</dt>
+      {% if parent_container_label is not none %}
+      <dd><a href="{{ parent_container_uri }}">{{ parent_container_uri }}</a></dd>
+      {% else %}
+      <dd><a href="{{ parent_container_uri }}">{{ parent_container_label }}</a></dd>
+      {% endif %}
+      {% endif %}
+    </dl>
+  </div>
+  <div>
+    <h3>Members</h3>
+    <ul>
+      {%- for member in members -%}
+      <li><a href="{{ utils.get_content_uri(member[0]) }}">{{ member[1] }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  <!-- <div>
+    {{ pagination.links }}
+    <div class="autopaginationinfo">
+      <div>
+        <h4>Automated Pagination&nbsp;<span id="collapsible-toggle" class="collapsible"
+            style="font-size: 14px;">(more)</span></h4>
+      </div>
+      <p>To page through these items, use query string arguments 'page' and 'per_page'.</p>
+      <div id="content-pagination" class="collapsible-content">
+        <p>HTTP <code>Link</code> headers of <code>first</code>, <code>prev</code>, <code>next</code> &amp;
+          <code>last</code> are given in web responses.</p>
+        <p>Example: assuming 500 items, page 7, of 50 per page, is given by:</p>
+        <pre>{{ request.url }}?page=7&amp;per_page=50</pre>
+        <p>Link header with a response assuming 500 items would be:</p>
+        <pre>Link:   &lt;{{ request.url }}?per_page=500&gt; rel="first",
+  &lt;{{ request.url }}?per_page=500&amp;page=6&gt; rel="prev",
+  &lt;{{ request.url }}?per_page=500&amp;page=8&gt; rel="next",
+  &lt;{{ request.url }}?per_page=500&amp;page=10&gt; rel="last"
+              </pre>
+        <p>If you want to page through the whole collection, start at <code>first</code> and follow link headers until you
+          reach <code>last</code> or until no <code>last</code> is given. You shouldn't try to calculate each
+          <code>page</code> query string argument yourself.</p>
+      </div>
+    </div>
+  </div> -->
+  <!-- <script>
+    var coll = document.getElementById("collapsible-toggle");
+
+    coll.addEventListener("click", function () {
+      var content = document.getElementById("content-pagination");
+      if (content.style.display === "inline") {
+        content.style.display = "none";
+        document.getElementsByClassName("collapsible")[0].innerHTML = "(more)";
+      } else {
+        content.style.display = "inline";
+        document.getElementsByClassName("collapsible")[0].innerHTML = "(less)";
+      }
+    });
+
+    let cards = document.getElementsByClassName("card")
+    let i;
+    for (i = 0; i < cards.length; i++) {
+      if (cards[i].children[1].children[0] === undefined) {
+        cards[i].children[1].innerHTML = "<em>No metadata found.</em>";
+      }
+    }
+  </script> -->
 </div>
 <div class="content-right">
   {% include 'alt_link.html' %}
+  <div class="filter">
+    <h3>Filter</h3>
+    <div class="filter-form">
+      <form method="get" action="{{ url_for('vocabularies') }}">
+        <input type="text" name="filter" value="{{ request.values.get('filter') if request.values.get('filter') }}" />
+        <button>Filter</button>
+        <span class="tooltip" style="font-weight:bold;">?<span class="tooltiptext">A simple text matching filter of the
+            list content to the left</span></span>
+      </form>
+    </div>
+    <form method="get" action="{{ url_for('vocabularies') }}">
+      <button>Clear</button>
+    </form>
+  </div>
 </div>
+
 {% endblock %}
