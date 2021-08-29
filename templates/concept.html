@@ -5,8 +5,7 @@
 {% set active_page = "vocab" %}
 
 {% block breadcrumbs %}
-<p class="breadcrumbs"><a href="{{ url_for('index') }}">System Home</a> / <a
-    href="{{ url_for('vocabularies') }}">Vocabularies</a> / <a href="{{ utils.get_content_uri(vocab_uri) }}">{{
+<p class="breadcrumbs"><a href="{{ url_for('vocabularies') }}">Vocabularies</a> / <a href="{{ utils.get_content_uri(vocab_uri) }}">{{
     vocab_title }}</a> / <a href="{{ utils.get_content_uri(uri) }}">{{ concept.prefLabel }}</a></p>
 {% endblock %}
 
