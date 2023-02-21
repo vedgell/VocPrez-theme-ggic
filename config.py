@@ -50,6 +50,6 @@ DATA_SOURCES = {
 # BEGIN Vocabs list info
 VOCS_TITLE = "GGIC Vocabularies"
 # VOCS_URI = "http://www.geoscience.gov.au/data-standards/ggic-vocab-register"
-VOCS_URI = "http://nonprod.ggic.vocabs.ga.gov.au/vocab/"
+VOCS_URI = "https://nonprod.ggic.vocabs.ga.gov.au/vocab/"
 VOCS_DESC = "Vocabularies managed and published by Geoscience Australia on behalf of the Government Geoscience Information Committee (GGIC), within the Australian Geoscience Information Network (AusGIN)."
 # END Vocabs list info
